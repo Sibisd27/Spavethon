@@ -2,154 +2,248 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Registration | Spavethon</title>
-    <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0f0f0f;
-            color: #ffffff;
+        :root{
+            --bg:#0f0f12;
+            --card:#121216;
+            --muted:#9aa0a6;
+            --accent:#ff7a00;
+            --success:#28a745;
+        }
+        *{box-sizing:border-box}
+        body{
+            margin:0;
+            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            background: linear-gradient(180deg,#07070a 0%, #121217 60%);
+            color:#fff;
+            min-height:100vh;
+            -webkit-font-smoothing:antialiased;
         }
 
-        .form-container {
-            max-width: 550px;
-            margin: 120px auto;
-            background: #1a1a1a;
-            padding: 30px;
-            border-radius: 10px;
+        .container{
+            max-width:980px;
+            margin:40px auto;
+            padding:20px;
         }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
+        .form-card{
+            background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.2));
+            border-radius:14px;
+            padding:28px;
+            box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+            display:grid;
+            grid-template-columns: 1fr 360px;
+            gap:24px;
+            align-items:start;
         }
 
-        label {
-            display: block;
-            margin-top: 15px;
-            font-size: 14px;
+        .form-main{padding:8px}
+
+        h2{margin:0 0 10px 0;font-size:22px}
+        p.lead{color:var(--muted);margin:0 0 18px 0}
+
+        .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+        label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+        input[type=text], input[type=tel], input[type=email], select, .checkbox-group, textarea{
+            width:100%;
+            padding:10px 12px;
+            border-radius:8px;
+            border:1px solid rgba(255,255,255,0.06);
+            background: rgba(255,255,255,0.02);
+            color:#fff;
+            outline:none;
+        }
+        input:focus, textarea:focus{box-shadow:0 6px 18px rgba(0,0,0,0.6);border-color:rgba(255,255,255,0.12)}
+
+        .checkbox-group{display:flex;flex-direction:column;gap:8px}
+        .checkbox-group label{display:flex;align-items:center;color:#ddd}
+        .checkbox-group input{margin-right:10px}
+
+        .side-panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.15));padding:16px;border-radius:10px}
+        .side-panel h3{margin:0 0 8px 0;font-size:16px}
+
+        .file-preview{width:100%;height:160px;background:rgba(255,255,255,0.02);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);overflow:hidden}
+        .file-preview img{max-width:100%;max-height:100%;display:block}
+
+        .btn-submit{
+            display:inline-block;padding:12px 18px;background:var(--accent);color:#000;border-radius:8px;font-weight:700;border:none;cursor:pointer;width:100%;margin-top:12px
         }
 
-        input[type="text"],
-        input[type="tel"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 6px;
-            border-radius: 6px;
-            border: none;
-            outline: none;
+        .loader{display:none;margin-top:12px;color:var(--muted);text-align:center}
+
+        @media (max-width:900px){
+            .form-card{grid-template-columns:1fr;}
+            .side-panel{order:2}
         }
 
-        .checkbox-group {
-            margin-top: 10px;
-        }
-
-        .checkbox-group label {
-            display: flex;
-            align-items: center;
-            margin-top: 8px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .checkbox-group input {
-            margin-right: 10px;
-        }
-
-        .btn-submit {
-            margin-top: 25px;
-            width: 100%;
-            padding: 12px;
-            background: #ff7a00;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-            color: #000;
-            font-weight: bold;
-        }
-
-        .btn-submit:hover {
-            opacity: 0.9;
+        @media (max-width:480px){
+            .container{padding:12px}
+            .form-card{padding:16px}
+            .file-preview{height:120px}
         }
     </style>
 </head>
 <body>
 
-<header class="navbar">
-    <div class="logo">SPAVETHON</div>
-</header>
+<div class="container">
+    <div class="form-card">
+        <div class="form-main">
+            <h2>Event Registration</h2>
+            <p class="lead">Register your team for Spavathon events. Fill required fields and upload payment screenshot (≤ 2MB).</p>
 
-<div class="form-container">
-    <h2>Event Registration</h2>
+            <form id="regForm" novalidate>
+                <div class="grid-2">
+                    <div>
+                        <label for="member1">Member 1 (Leader)</label>
+                        <input id="member1" name="member1" type="text" placeholder="Leader full name" required>
+                    </div>
+                    <div>
+                        <label for="member2">Member 2</label>
+                        <input id="member2" name="member2" type="text" placeholder="Member 2 name" required>
+                    </div>
+                </div>
 
-    <form action="success.html" method="post">
+                <div class="grid-2" style="margin-top:12px">
+                    <div>
+                        <label for="member3">Member 3</label>
+                        <input id="member3" name="member3" type="text" placeholder="Optional">
+                    </div>
+                    <div>
+                        <label for="member4">Member 4</label>
+                        <input id="member4" name="member4" type="text" placeholder="Optional">
+                    </div>
+                </div>
 
-        <!-- Team Members -->
-        <label>Member 1 (Leader)</label>
-        <input type="text" name="member1" placeholder="Enter name ">
+                <div style="margin-top:12px">
+                    <label for="college">College Name</label>
+                    <input id="college" name="college" type="text" placeholder="Your college or institution" required>
+                </div>
 
-        <label>Member 2</label>
-        <input type="text" name="member2" placeholder="Enter name ">
+                <div style="margin-top:12px">
+                    <label>Select Event(s)</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="event" value="Hackathon"> Hackathon</label>
+                        <label><input type="checkbox" name="event" value="Paper Presentation"> Paper Presentation</label>
+                        <label><input type="checkbox" name="event" value="Project Presentation"> Project Presentation</label>
+                        <label><input type="checkbox" name="event" value="Hackathon and Paper Presentation"> Hackathon and Paper Presentation</label>
+                        <label><input type="checkbox" name="event" value="Hackathon and Project Presentation"> Hackathon and Project Presentation</label>
+                        <label><input type="checkbox" name="event" value="Hackathon and TinkerCAD, Quiz and Treasure Hunt"> Hackathon and TinkerCAD, Quiz & Treasure Hunt</label>
+                    </div>
+                </div>
 
-        <label>Member 3</label>
-        <input type="text" name="member3" placeholder="Enter name ">
+                <div class="grid-2" style="margin-top:12px">
+                    <div>
+                        <label for="phone">Phone Number</label>
+                        <input id="phone" name="phone" type="tel" placeholder="10-digit mobile" required>
+                    </div>
+                    <div>
+                        <label for="email">Email Address</label>
+                        <input id="email" name="email" type="email" placeholder="you@example.com" required>
+                    </div>
+                </div>
 
-        <label>Member 4</label>
-        <input type="text" name="member4" placeholder="Enter name (optional)">
+                <div style="margin-top:12px">
+                    <label for="upi">UPI Transaction ID</label>
+                    <input id="upi" name="upi" type="text" placeholder="UPI tx id" required>
+                </div>
 
-        <!-- College -->
-        <label>College Name</label>
-        <input type="text" name="college" placeholder="Enter your college name" required>        
+                <div style="margin-top:12px">
+                    <label for="paymentScreenshot">Payment Screenshot (≤ 2MB)</label>
+                    <input id="paymentScreenshot" name="paymentScreenshot" type="file" accept="image/*" required>
+                </div>
 
-        <!-- Event Selection -->
-        <label style="margin-top:20px;">Select Event</label>
-        <div class="checkbox-group">
-            <label>
-                <input type="checkbox" name="events[]" value="Hackathon">
-                Hackathon
-            </label>
-
-            <label>
-                <input type="checkbox" name="events[]" value="Paper Presentation">
-                Paper Presentation
-            </label>
-
-            <label>
-                <input type="checkbox" name="events[]" value="Project Presentation">
-                Project Presentation
-            </label>
-
-            <label>
-                <input type="checkbox" name="events[]" value="Tinkercad">
-                Hackathon and Paper Presentation
-            </label>
-
-            <label>
-                <input type="checkbox" name="events[]" value="Quiz">
-                Hackathon and Project Presentation
-            </label>
-            <label>
-                <input type="checkbox" name="events[]" value="Quiz">
-                Hackathon and TinkerCad, Quiz, Treasure Hunt
-            </label>            
+                <button id="submitBtn" class="btn-submit" type="submit">Submit Registration</button>
+                <div id="loader" class="loader">Submitting, please wait…</div>
+            </form>
         </div>
 
-        <!-- Phone -->
-        <label>Phone Number</label>
-        <input type="tel" name="phone" placeholder="Enter contact number" required>
-
-        <!-- UPI Transaction ID -->
-        <label>UPI Transaction ID</label>
-        <input type="text" name="upi_id" placeholder="Enter UPI transaction ID" required>        
-
-        <button type="submit" class="btn-submit">Submit Registration</button>
-    </form>
+        <aside class="side-panel">
+            <h3>Preview</h3>
+            <div class="file-preview" id="filePreview">No image selected</div>
+            <div style="margin-top:12px;color:var(--muted);font-size:13px">Make sure the screenshot clearly shows payment transaction details.</div>
+        </aside>
+    </div>
 </div>
 
-<footer class="footer">
-    <p>© 2026 Spavethon. Kongu Engineering College.</p>
-</footer>
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbypbhebPW1Hf1TwaGiRAOtoZscU_AWX6iYWFFdLxAWE0AaXa9HReeUCD7OdDs6JJlo/exec";
+
+const form = document.getElementById('regForm');
+const loader = document.getElementById('loader');
+const submitBtn = document.getElementById('submitBtn');
+const fileInput = document.getElementById('paymentScreenshot');
+const filePreview = document.getElementById('filePreview');
+
+fileInput.addEventListener('change', () => {
+    const f = fileInput.files[0];
+    if (!f) { filePreview.innerText = 'No image selected'; return; }
+    if (f.size > 2*1024*1024) {
+        alert('Image must be under 2MB');
+        fileInput.value = '';
+        filePreview.innerText = 'No image selected';
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = e => {
+        filePreview.innerHTML = '<img src="'+e.target.result+'" alt="preview">';
+    };
+    reader.readAsDataURL(f);
+});
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const events = [...document.querySelectorAll('input[name="event"]:checked')].map(c=>c.value);
+    if (events.length===0) { alert('Select at least one event'); return; }
+
+    const phone = document.getElementById('phone').value.trim();
+    if (!/^\d{10}$/.test(phone)) { alert('Enter valid 10-digit phone number'); return; }
+
+    const email = document.getElementById('email').value.trim();
+    if (!email.includes('@')) { alert('Enter a valid email'); return; }
+
+    const f = fileInput.files[0];
+    if (!f) { alert('Upload payment screenshot'); return; }
+
+    // disable
+    submitBtn.disabled = true; loader.style.display = 'block';
+
+    try {
+        const dataURL = await new Promise((res,rej)=>{
+            const r = new FileReader();
+            r.onload = () => res(r.result);
+            r.onerror = rej;
+            r.readAsDataURL(f);
+        });
+
+        const payload = {
+            member1: document.getElementById('member1').value.trim(),
+            member2: document.getElementById('member2').value.trim(),
+            member3: document.getElementById('member3').value.trim(),
+            member4: document.getElementById('member4').value.trim(),
+            college: document.getElementById('college').value.trim(),
+            events: events.join(', '),
+            phone: phone,
+            email: email,
+            upi: document.getElementById('upi').value.trim(),
+            image: dataURL.split(',')[1],
+            imageType: f.type
+        };
+
+        const res = await fetch(scriptURL, { method:'POST', body: JSON.stringify(payload) });
+        if (!res.ok) throw new Error('network');
+        // redirect to success if available
+        window.location.href = 'success.html';
+    } catch (err) {
+        console.error(err);
+        alert('Submission failed. Try again.');
+    } finally {
+        submitBtn.disabled = false; loader.style.display = 'none';
+    }
+});
+</script>
 
 </body>
 </html>

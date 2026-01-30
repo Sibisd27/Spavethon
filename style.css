@@ -68,20 +68,61 @@ body {
 
 /* 🏯 Hero Section */
 .hero {
-    height: 100vh;
-    background: linear-gradient(
-        to right,
-        rgba(20,22,26,0.9),
-        rgba(20,22,26,0.6)
-    ),
-    url('https://images.unsplash.com/photo-1549880181-56a44cf4a9a2') center/cover no-repeat;
     display: flex;
+    min-height: 100vh; /* allow the section to grow if content needs more space, but default to viewport height */
+    width: 100%;
+    position: relative;
+    /* use the project image as the full-section background */
+    background-image: url("8598023.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
     align-items: center;
-    padding: 0 10%;
+    overflow: hidden; /* prevent child content from visually spilling out and showing the image on the next page */
+}
+
+.hero::before {
+    /* light overlay + blur to soften the background image */
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* keep a very subtle tint only; do NOT blur the background image */
+    background: rgba(0,0,0,0.06);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    pointer-events: none;
 }
 
 .hero-content {
-    max-width: 800px;
+    width: 40%;
+    /* dark (black-tinted) blurred panel for contrast while keeping image sharp */
+    background: rgba(158, 153, 153, 0.46);
+    color: #fff;
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative; /* sit above the overlay */
+    z-index: 2;
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* text and button styles for the dark panel */
+.hero-content h1,
+.hero-content p,
+.hero-content .hero-subtext {
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(20, 4, 4, 0.6);
+}
+.hero-content .btn-secondary {
+    color: #fff;
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.18);
+}
+.hero-content .btn-secondary:hover {
+    background: rgba(255,255,255,0.10);
 }
 html {
     scroll-behavior: smooth;
@@ -97,14 +138,12 @@ html {
     margin-bottom: 15px;
 }
 
-.hero h1 {
-    font-family: 'Cinzel', serif;
-    font-size: 48px;
-    margin-bottom: 20px;
-}
+/* removed duplicate .hero-content block to prevent overriding the blurred panel styles above */
+
 
 .hero-subtext {
-    color: var(--secondary-text);
+    font-size: 14px;
+    opacity: 0.7;
     margin-bottom: 30px;
 }
 
@@ -132,20 +171,38 @@ html {
 }
 
 .btn-secondary {
-    background: transparent;
-    color: var(--light-text);
-    border: 1px solid var(--mist-gray);
+    display: inline-block;
+    padding: 12px 28px;
+    border: 1px solid white;
+    color: white;
+    text-decoration: none;
+    width: fit-content;
+    transition: 0.3s;
 }
 
 .btn-secondary:hover {
-    border-color: var(--blood-red);
-    color: var(--blood-red);
+    background: white;
+    color: black;
 }
+.hero-image { display: none; }
 
 /* ⚔️ Features */
 .features {
     padding: 100px 10%;
     text-align: center;
+    /* use a solid background to prevent the hero image showing through */
+    background: #000;
+    position: relative;
+    z-index: 1;
+}
+
+/* make feature section text readable on dark/light cards */
+.features,
+.features .section-title,
+.features .feature-card,
+.features .feature-card h3,
+.features .feature-card p {
+    color: #ffffff;
 }
 
 .section-title {
@@ -182,9 +239,24 @@ html {
 .gallery{
     padding: 10px 10%;
     text-align: center;
+    /* use a solid background to avoid the hero image being visible underneath */
+    background: #ffffff;
+    position: relative;
+    z-index: 1;
+}
+
+/* Gallery text: dark title on light translucent background, keep card text white for dark cards */
+.gallery .section-title {
+    color: #000000;
+}
+.gallery .gallery-card,
+.gallery .gallery-card h3,
+.gallery .gallery-card p {
+    color: #ffffff;
 }
 
 .gallery-card {
+    /* use same grey card style as features for visual consistency */
     background: var(--mist-gray);
     padding: 30px;
     border: 1px solid #3A3F46;
@@ -202,6 +274,81 @@ html {
     padding: 30px;
     background: #0f1114;
     color: var(--secondary-text);
+}
+/* ⚔️ Samurai Slash Container */
+#slash-transition {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #1a1a1a, #000);
+    z-index: 9999;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.8s cubic-bezier(0.77, 0, 0.18, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+/* Active slash */
+#slash-transition.active {
+    transform: scaleY(1);
+}
+
+/* 🔢 Loading text */
+#loading-text {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: #8C7A4F;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+#slash-transition.active #loading-text {
+    opacity: 1;
+}
+
+/* Page motion */
+body {
+    opacity: 0;
+    transform: scale(1.06);
+    filter: blur(10px);
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease,
+        filter 0.6s ease;
+}
+
+body.page-loaded {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+}
+
+/* 🎯 Direction variants */
+#slash-transition.left { transform-origin: left; }
+#slash-transition.right { transform-origin: right; }
+#slash-transition.top { transform-origin: top; }
+
+/* New slide transitions for specific pages */
+#slash-transition.slide-left {
+    /* start off-screen to the left */
+    transform: translateX(-100%);
+    transform-origin: left;
+    transition: transform 0.55s cubic-bezier(0.22, 0.9, 0.36, 1);
+}
+#slash-transition.slide-left.active {
+    transform: translateX(0);
+}
+
+#slash-transition.slide-right {
+    transform: translateX(100%);
+    transform-origin: right;
+    transition: transform 0.55s cubic-bezier(0.22, 0.9, 0.36, 1);
+}
+#slash-transition.slide-right.active {
+    transform: translateX(0);
 }
 
 
@@ -224,5 +371,89 @@ html {
 
     .menu-toggle {
         display: block;
+    }
+}
+
+/* ---- Responsive: tablet and laptop adjustments ---- */
+@media (max-width: 1024px) {
+    .hero-content {
+        width: 50%;
+        padding: 64px 40px;
+    }
+
+    .section-title {
+        font-size: 32px;
+    }
+
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+}
+
+/* ---- Responsive: mobile (phones) ---- */
+@media (max-width: 768px) {
+    /* Stack hero vertically and keep the background visible */
+    .hero {
+        flex-direction: column;
+        align-items: stretch;
+        min-height: auto;
+        padding: 40px 0;
+        background-position: center top;
+    }
+
+    .hero::before {
+        /* slightly stronger tint on small screens for legibility */
+        background: rgba(0,0,0,0.12);
+    }
+
+    .hero-content {
+        width: 100%;
+        padding: 40px 20px;
+        border-radius: 0 0 12px 12px;
+        margin: 0 auto;
+    }
+
+    .hero-content h1 {
+        font-size: 24px;
+        line-height: 1.3;
+    }
+
+    .hero-subtext {
+        font-size: 13px;
+    }
+
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        display: block;
+        margin: 12px 0 0 0;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .features {
+        padding: 60px 6%;
+    }
+
+    .gallery {
+        padding: 40px 6%;
+    }
+}
+
+/* small phone tweaks */
+@media (max-width: 480px) {
+    .hero-content {
+        padding: 28px 16px;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .logo {
+        font-size: 20px;
     }
 }
