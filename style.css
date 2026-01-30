@@ -66,6 +66,42 @@ body {
     cursor: pointer;
 }
 
+/* Navbar: push links to the right and style them */
+.nav-links {
+    margin-left: auto; /* push to right side */
+    align-items: center;
+    gap: 18px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--light-text);
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background 0.18s, color 0.18s, transform 0.12s;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    background: rgba(255,255,255,0.04);
+    color: var(--light-text);
+    transform: translateY(-1px);
+}
+
+/* Sign up as a distinct pill */
+.nav-links .btn-primary {
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: var(--blood-red);
+    color: #fff;
+    border: none;
+}
+
+/* Make sure menu-toggle stays at right on small screens */
+.navbar .menu-toggle {
+    margin-left: 12px;
+}
+
 /* 🏯 Hero Section */
 .hero {
     display: flex;

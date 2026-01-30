@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sign Up | Spavethon</title>
+  <style>
+    body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#07070a,#121217);color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh}
+    .card{width:100%;max-width:540px;padding:22px;border-radius:12px;background:rgba(255,255,255,0.03);box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+    h2{margin:0 0 8px 0}
+    label{display:block;color:#bfc6cb;font-size:13px;margin-top:12px}
+  /* compact input styling: smaller typing boxes */
+  input{width:100%;padding:8px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:#fff;font-size:14px;line-height:1.2;height:36px;transition:box-shadow .12s ease,border-color .12s ease}
+  input::placeholder{color:rgba(255,255,255,0.45);font-size:13px}
+  input:focus{outline:none;border-color:rgba(255,255,255,0.16);box-shadow:0 6px 14px rgba(2,6,23,0.55)}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .actions{display:flex;gap:10px;margin-top:16px}
+    .btn{padding:10px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+    .btn-primary{background:#ff7a00;color:#000}
+    .link{display:block;margin-top:14px;color:#9aa0a6;text-decoration:none;text-align:center}
+    @media(max-width:520px){.grid-2{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h2>Create an account</h2>
+    <p style="color:#9aa0a6;margin:0 0 12px 0">Sign up to register teams and manage submissions.</p>
+
+    <form id="signupForm">
+      <div class="grid-2">
+        <div>
+          <label for="fname">First name</label>
+          <input id="fname" name="fname" type="text" required>
+        </div>
+        <div>
+          <label for="lname">Last name</label>
+          <input id="lname" name="lname" type="text" required>
+        </div>
+      </div>
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required>
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required>
+
+      <div class="actions">
+        <button type="submit" class="btn btn-primary">Create account</button>
+      </div>
+    </form>
+
+    <a class="link" href="signin.html">Already have an account? Sign in</a>
+    <a class="link" href="FIrstPage.html">Back to Home</a>
+  </main>
+
+  <script>
+    document.getElementById('signupForm').addEventListener('submit', e=>{
+      e.preventDefault();
+      alert('Account created (demo)');
+      window.location.href = 'signin.html';
+    });
+  </script>
+</body>
+</html>
