@@ -81,7 +81,13 @@ body {
 }
 
 .hero-content {
-    max-width: 600px;
+    max-width: 800px;
+}
+html {
+    scroll-behavior: smooth;
+}
+.btn-secondary {
+    text-decoration: none;   /* removes underline */
 }
 
 .hero-label {
@@ -166,23 +172,28 @@ body {
     border-color: var(--gold-accent);
 }
 
-/* 🖼 Gallery */
-.gallery {
-    padding: 100px 10%;
-    background: var(--dark-bg);
+/* hackathon */
+
+.Next-page{
+   text-decoration: none;
+}
+/* gallery */
+
+.gallery{
+    padding: 10px 10%;
     text-align: center;
 }
 
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+.gallery-card {
+    background: var(--mist-gray);
+    padding: 30px;
+    border: 1px solid #3A3F46;
+    transition: transform 0.3s;
 }
 
-.gallery-item {
-    height: 220px;
-    background: var(--mist-gray);
-    border: 1px solid #3A3F46;
+.gallery-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--gold-accent);
 }
 
 /* 📜 Footer */

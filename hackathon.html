@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration | Spavethon</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f0f0f;
+            color: #ffffff;
+        }
+
+        .form-container {
+            max-width: 550px;
+            margin: 120px auto;
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border-radius: 6px;
+            border: none;
+            outline: none;
+        }
+
+        .checkbox-group {
+            margin-top: 10px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            margin-top: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .checkbox-group input {
+            margin-right: 10px;
+        }
+
+        .btn-submit {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            background: #ff7a00;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">SPAVETHON</div>
+</header>
+
+<div class="form-container">
+    <h2>Event Registration</h2>
+
+    <form action="success.html" method="post">
+
+        <!-- Team Members -->
+        <label>Member 1 (Leader)</label>
+        <input type="text" name="member1" placeholder="Enter name ">
+
+        <label>Member 2</label>
+        <input type="text" name="member2" placeholder="Enter name ">
+
+        <label>Member 3</label>
+        <input type="text" name="member3" placeholder="Enter name ">
+
+        <label>Member 4</label>
+        <input type="text" name="member4" placeholder="Enter name (optional)">
+
+        <!-- College -->
+        <label>College Name</label>
+        <input type="text" name="college" placeholder="Enter your college name" required>        
+
+        <!-- Event Selection -->
+        <label style="margin-top:20px;">Select Event</label>
+        <div class="checkbox-group">
+            <label>
+                <input type="checkbox" name="events[]" value="Hackathon">
+                Hackathon
+            </label>
+
+            <label>
+                <input type="checkbox" name="events[]" value="Paper Presentation">
+                Paper Presentation
+            </label>
+
+            <label>
+                <input type="checkbox" name="events[]" value="Project Presentation">
+                Project Presentation
+            </label>
+
+            <label>
+                <input type="checkbox" name="events[]" value="Tinkercad">
+                Hackathon and Paper Presentation
+            </label>
+
+            <label>
+                <input type="checkbox" name="events[]" value="Quiz">
+                Hackathon and Project Presentation
+            </label>
+            <label>
+                <input type="checkbox" name="events[]" value="Quiz">
+                Hackathon and TinkerCad, Quiz, Treasure Hunt
+            </label>            
+        </div>
+
+        <!-- Phone -->
+        <label>Phone Number</label>
+        <input type="tel" name="phone" placeholder="Enter contact number" required>
+
+        <!-- UPI Transaction ID -->
+        <label>UPI Transaction ID</label>
+        <input type="text" name="upi_id" placeholder="Enter UPI transaction ID" required>        
+
+        <button type="submit" class="btn-submit">Submit Registration</button>
+    </form>
+</div>
+
+<footer class="footer">
+    <p>© 2026 Spavethon. Kongu Engineering College.</p>
+</footer>
+
+</body>
+</html>
