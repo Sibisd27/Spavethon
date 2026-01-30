@@ -1,0 +1,217 @@
+/* 🎨 Color Variables */
+:root {
+    --dark-bg: #14161A;
+    --storm-gray: #2B2E34;
+    --mist-gray: #5A5F66;
+    --light-text: #E8ECEF;
+    --secondary-text: #C9C3B8;
+    --blood-red: #B11226;
+    --deep-crimson: #7A0C1A;
+    --gold-accent: #8C7A4F;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--storm-gray);
+    color: var(--light-text);
+    line-height: 1.6;
+}
+
+/* 🔥 Navbar */
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(20, 22, 26, 0.85);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+}
+
+.logo {
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    letter-spacing: 3px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--light-text);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--blood-red);
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* 🏯 Hero Section */
+.hero {
+    height: 100vh;
+    background: linear-gradient(
+        to right,
+        rgba(20,22,26,0.9),
+        rgba(20,22,26,0.6)
+    ),
+    url('https://images.unsplash.com/photo-1549880181-56a44cf4a9a2') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+}
+
+.hero-content {
+    max-width: 600px;
+}
+
+.hero-label {
+    font-family: 'Cinzel', serif;
+    color: var(--gold-accent);
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+}
+
+.hero h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero-subtext {
+    color: var(--secondary-text);
+    margin-bottom: 30px;
+}
+
+/* 🎴 Buttons */
+.btn-primary, .btn-secondary {
+    padding: 14px 28px;
+    margin-right: 15px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: var(--blood-red);
+    color: var(--light-text);
+    border: 1px solid var(--gold-accent);
+}
+
+.btn-primary:hover {
+    background: var(--deep-crimson);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(177,18,38,0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--light-text);
+    border: 1px solid var(--mist-gray);
+}
+
+.btn-secondary:hover {
+    border-color: var(--blood-red);
+    color: var(--blood-red);
+}
+
+/* ⚔️ Features */
+.features {
+    padding: 100px 10%;
+    text-align: center;
+}
+
+.section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 36px;
+    margin-bottom: 50px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background: var(--mist-gray);
+    padding: 30px;
+    border: 1px solid #3A3F46;
+    transition: transform 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--gold-accent);
+}
+
+/* 🖼 Gallery */
+.gallery {
+    padding: 100px 10%;
+    background: var(--dark-bg);
+    text-align: center;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.gallery-item {
+    height: 220px;
+    background: var(--mist-gray);
+    border: 1px solid #3A3F46;
+}
+
+/* 📜 Footer */
+.footer {
+    text-align: center;
+    padding: 30px;
+    background: #0f1114;
+    color: var(--secondary-text);
+}
+
+
+/* 📱 Mobile */
+@media (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        top: 80px;
+        right: 0;
+        background: var(--dark-bg);
+        flex-direction: column;
+        width: 200px;
+        display: none;
+        padding: 20px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
